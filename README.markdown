@@ -132,9 +132,10 @@ Alternatively you can manually perform the following steps. If anything has chan
 ## Enabling syntactic checkers
 
 The plugin syntastic (enabled by default) requires external programs to perform syntactic checks.
-Prior to install these, you must install nodejs first.
 
 ### JavaScript
+
+Prior to install these, you must install nodejs first.
 
 ```bash
     npm install -g jsonlint

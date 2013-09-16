@@ -16,7 +16,7 @@ if !exists("g:override_spf13_bundles")
         " nodejs
             if count(g:spf13_bundle_groups, 'nodejs')
                 Bundle 'moll/vim-node'
-                Bundle 'guileen/vim-node-dict'
+                Bundle 'guileen/vim-node'
             endif
 
         " HTML

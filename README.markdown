@@ -1,4 +1,4 @@
-# spf13-vim : Steve Francia's Vim Distribution
+# spf13-vim : Francois Jacques' fork of Steve Francia's Vim Distribution
 
                     __ _ _____              _
          ___ _ __  / _/ |___ /      __   __(_)_ __ ___
@@ -20,6 +20,11 @@ Unlike traditional VIM plugin structure, which similar to UNIX throws all files 
 Great care has been taken to ensure that each plugin plays nicely with others, and optional configuration has been provided for what we believe is the most efficient use.
 
 Lastly (and perhaps, most importantly) It is completely cross platform. It works well on Windows, Linux and OSX without any modifications or additional configurations. If you are using [MacVim] or Gvim additional features are enabled. So regardless of your environment just clone and run.
+
+# Fork
+
+Added documentation with respect to syntactical checkers installation.
+Added modules specific to nodejs development.
 
 # Installation
 ## Requirements
@@ -122,6 +127,24 @@ Alternatively you can manually perform the following steps. If anything has chan
     cd $HOME/to/spf13-vim/
     git pull
     vim +BundleInstall! +BundleClean +q
+```
+## Enabling syntaxical checkers
+
+The plugin syntastic (enabled by default) requires external programs to perform syntaxical checks.
+
+### JavaScript
+
+```bash
+    npm install -g jsonlint
+    npm install -g jslint
+    npm install -g jshint
+    npm install -g coffeelint
+```
+
+### HTML/CSS
+
+``` bash
+    npm install -g csslint
 ```
 
 ### Fork me on GitHub

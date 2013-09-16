@@ -124,7 +124,7 @@ Alternatively you can manually perform the following steps. If anything has chan
 
 The plugin syntastic (enabled by default) requires external programs to perform syntactic checks.
 
-### JavaScript
+#### JavaScript
 
 Prior to install these, you must install nodejs first.
 
@@ -133,11 +133,6 @@ Prior to install these, you must install nodejs first.
     npm install -g jslint
     npm install -g jshint
     npm install -g coffeelint
-```
-
-### HTML/CSS
-
-``` bash
     npm install -g csslint
 ```
 

@@ -24,6 +24,7 @@ Lastly (and perhaps, most importantly) It is completely cross platform. It works
 # Fork
 
 Added documentation with respect to syntactical checkers installation.
+
 Added modules specific to nodejs development.
 
 # spf13-vim 3.0
@@ -119,9 +120,10 @@ Alternatively you can manually perform the following steps. If anything has chan
     git pull
     vim +BundleInstall! +BundleClean +q
 ```
-## Enabling syntaxical checkers
+## Enabling syntactic checkers
 
-The plugin syntastic (enabled by default) requires external programs to perform syntaxical checks.
+The plugin syntastic (enabled by default) requires external programs to perform syntactic checks.
+Prior to install these, you must install nodejs first.
 
 ### JavaScript
 

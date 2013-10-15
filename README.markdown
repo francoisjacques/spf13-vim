@@ -145,6 +145,22 @@ Prior to install these, you must install nodejs first.
     npm install -g csslint
 ```
 
+## Enabling markdown preview
+
+```bash
+    gem install bluecloth
+    gem install github-markup
+    gem install RedCloth
+    gem install ronn
+```
+
+## Speed up vim on cygwin
+
+```bash
+    $ mv /etc/profile.d/bash_completion.sh{,.disabled}
+```
+[source](http://cfc.kizzx2.com/index.php/cygwin-slow-start-up-the-culprit-discovered/)
+
 ### Fork me on GitHub
 
 I'm always happy to take pull requests from others. A good number of people are already [contributors] to [spf13-vim]. Go ahead and fork me.

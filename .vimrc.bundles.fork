@@ -6,7 +6,10 @@
 if !exists("g:override_spf13_bundles")
 
     " Bundles {
-        " Javascript
+            if count(g:spf13_bundle_groups, 'neocomplete')
+                Bundle 'Shougo/vimproc.vim'
+            endif
+    " Javascript
             if count(g:spf13_bundle_groups, 'javascript')
                 Bundle 'marijnh/tern_for_vim'
                 Bundle 'leafgarland/typescript-vim'

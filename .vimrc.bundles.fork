@@ -6,6 +6,9 @@
 if !exists("g:override_spf13_bundles")
 
     " Bundles {
+        " NeoComplete/Snippets support
+                Bundle 'Shougo/context_filetype.vim'
+
         " Javascript
             if count(g:spf13_bundle_groups, 'javascript')
                 Bundle 'marijnh/tern_for_vim'

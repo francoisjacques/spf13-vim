@@ -2,5 +2,6 @@
 " list only the plugin groups you will use
 if !exists('g:spf13_bundle_groups')
     let g:spf13_bundle_groups=['general', 'neocomplete', 'programming', 'javascript', 'html', 'misc', 'nodejs']
+    let g:PreviewBrowsers='firefox,lynx'
 endif
 

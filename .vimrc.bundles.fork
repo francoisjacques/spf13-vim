@@ -7,11 +7,13 @@ if !exists("g:override_spf13_bundles")
 
     " Bundles {
         " NeoComplete/Snippets support
-            if count(g:spf13_bundle_groups, 'neocomplete')
-                Bundle 'Shougo/vimproc.vim'
-                Bundle 'Shougo/context_filetype.vim'
-
-            endif
+            "if count(g:spf13_bundle_groups, 'neocomplete')
+                "Bundle 'Shougo/vimproc.vim'
+                "Bundle 'Shougo/context_filetype.vim'
+            "endif
+        " YouCompleteMe
+        if count(g:spf13_bundle_groups, 'youcompleteme')
+        endif
         " Javascript
             if count(g:spf13_bundle_groups, 'javascript')
                 Bundle 'marijnh/tern_for_vim'

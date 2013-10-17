@@ -17,6 +17,15 @@ if !exists("g:override_spf13_bundles")
                 Bundle 'marijnh/tern_for_vim'
                 Bundle 'leafgarland/typescript-vim'
                 Bundle 'jelera/vim-javascript-syntax'
+                autocmd FileType javascript setlocal omnifunc=tern#Complete
+                if !exists('g:neocomplete#sources#omni#input_patterns')
+                    let g:neocomplete#sources#omni#input_patterns = {}
+                endif
+                let g:neocomplete#sources#omni#input_patterns.javascript = '\h\w*\|[^. \t]\.\w*'
+                if !exists('g:neocomplete#force_omni_input_patterns')
+                    let g:neocomplete#force_omni_input_patterns = {}
+                endif
+                let g:neocomplete#force_omni_input_patterns.javascript = '[^. \t]\.\w*'
             endif
 
         " nodejs

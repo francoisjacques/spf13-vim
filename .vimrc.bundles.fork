@@ -12,9 +12,6 @@ if !exists("g:override_spf13_bundles")
                 "Bundle 'Shougo/context_filetype.vim'
             "endif
         " YouCompleteMe
-        if count(g:spf13_bundle_groups, 'youcompleteme')
-            Bundle 'Valloric/YouCompleteMe'
-        endif
         " Javascript
             if count(g:spf13_bundle_groups, 'javascript')
                 Bundle 'marijnh/tern_for_vim'

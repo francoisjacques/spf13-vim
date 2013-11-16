@@ -101,7 +101,6 @@
             Bundle 'altercation/vim-colors-solarized'
             Bundle 'spf13/vim-colors'
             Bundle 'tpope/vim-surround'
-            Bundle 'spf13/vim-autoclose'
             Bundle 'kien/ctrlp.vim'
             Bundle 'terryma/vim-multiple-cursors'
             Bundle 'vim-scripts/sessionman.vim'
@@ -133,6 +132,7 @@
         if count(g:spf13_bundle_groups, 'programming')
             " Pick one of the checksyntax, jslint, or syntastic
             Bundle 'scrooloose/syntastic'
+            let g:syntastic_check_on_open=1
             Bundle 'tpope/vim-fugitive'
             Bundle 'mattn/webapi-vim'
             Bundle 'mattn/gist-vim'
@@ -148,6 +148,7 @@
         if count(g:spf13_bundle_groups, 'snipmate')
             Bundle 'garbas/vim-snipmate'
             Bundle 'honza/vim-snippets'
+            Bundle 'spf13/vim-autoclose'
             " Source support_function.vim to support vim-snippets.
             if filereadable(expand("~/.vim/bundle/vim-snippets/snippets/support_functions.vim"))
                 source ~/.vim/bundle/vim-snippets/snippets/support_functions.vim
@@ -156,13 +157,22 @@
             Bundle 'Shougo/neocomplcache'
             Bundle 'Shougo/neosnippet'
             Bundle 'honza/vim-snippets'
+            Bundle 'spf13/vim-autoclose'
         elseif count(g:spf13_bundle_groups, 'neocomplete')
             Bundle 'Shougo/neocomplete.vim.git'
             Bundle 'Shougo/neosnippet'
             Bundle 'honza/vim-snippets'
+            Bundle 'spf13/vim-autoclose'
         elseif count(g:spf13_bundle_groups, 'youcompleteme')
             Bundle 'Valloric/YouCompleteMe'
+            let g:ycm_add_preview_to_completeopt=0
+            let g:ycm_confirm_extra_conf=0
+            set completeopt-=preview
             Bundle 'honza/vim-snippets'
+            Bundle 'Raimondi/delimitMate'
+            let delimitMate_expand_cr=1
+            Bundle 'SirVer/ultisnips'
+            let g:UltiSnipsUsePythonVersion = 3
         endif
     " }
 
@@ -190,6 +200,9 @@
             Bundle 'pangloss/vim-javascript'
             Bundle 'briancollins/vim-jst'
             Bundle 'kchmck/vim-coffee-script'
+            Bundle 'leafgarland/typescript-vim'
+            Bundle 'marijnh/tern_for_vim'
+            autocmd FileType javascript setlocal omnifunc=tern#Complete
         endif
     " }
 

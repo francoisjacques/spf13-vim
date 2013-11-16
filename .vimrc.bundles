@@ -145,6 +145,21 @@
     " }
 
     " Snippets & AutoComplete {
+function! g:UltiSnips_Complete()
+    call UltiSnips_ExpandSnippet()
+    if g:ulti_expand_res == 0
+        if pumvisible()
+            return "\<C-n>"
+        else
+            call UltiSnips_JumpForwards()
+            if g:ulti_jump_forwards_res == 0
+                return "\<TAB>"
+            endif
+        endif
+    endif
+    return ""
+endfunction
+
         if count(g:spf13_bundle_groups, 'snipmate')
             Bundle 'garbas/vim-snipmate'
             Bundle 'honza/vim-snippets'
@@ -173,6 +188,12 @@
             let delimitMate_expand_cr=1
             Bundle 'SirVer/ultisnips'
             let g:UltiSnipsUsePythonVersion = 2
+            au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
+            " Can't get it to work with tab, at least on linux.
+            "let g:UltiSnipsListSnippets="<c-m>"
+            "let g:UltiSnipsExpandTrigger="<tab>"
+            "let g:UltiSnipsJumpForwardTrigger="<tab>"
+            "let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
         endif
     " }
 

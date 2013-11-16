@@ -365,6 +365,7 @@ file
  * `<leader>gb` :Gblame<CR>
  * `<leader>gl` :Glog<CR>
  * `<leader>gp` :Git push<CR>
+ * `<leader>gw` :Gwrite<CR>
  * :Git ___ will pass anything along to git.
 
 ![fugitive image][fugitive-img]

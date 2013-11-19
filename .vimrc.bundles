@@ -145,21 +145,6 @@
     " }
 
     " Snippets & AutoComplete {
-function! g:UltiSnips_Complete()
-    call UltiSnips_ExpandSnippet()
-    if g:ulti_expand_res == 0
-        if pumvisible()
-            return "\<C-n>"
-        else
-            call UltiSnips_JumpForwards()
-            if g:ulti_jump_forwards_res == 0
-                return "\<TAB>"
-            endif
-        endif
-    endif
-    return ""
-endfunction
-
         if count(g:spf13_bundle_groups, 'snipmate')
             Bundle 'garbas/vim-snipmate'
             Bundle 'honza/vim-snippets'
@@ -179,21 +164,36 @@ endfunction
             Bundle 'honza/vim-snippets'
             Bundle 'spf13/vim-autoclose'
         elseif count(g:spf13_bundle_groups, 'youcompleteme')
-            Bundle 'Valloric/YouCompleteMe'
-            let g:ycm_add_preview_to_completeopt=0
-            let g:ycm_confirm_extra_conf=0
-            set completeopt-=preview
-            Bundle 'honza/vim-snippets'
+            "Bundle 'Valloric/YouCompleteMe'
+            "let g:ycm_add_preview_to_completeopt=0
+            "let g:ycm_confirm_extra_conf=0
+            "set completeopt-=preview
             Bundle 'Raimondi/delimitMate'
             let delimitMate_expand_cr=1
             Bundle 'SirVer/ultisnips'
             let g:UltiSnipsUsePythonVersion = 2
-            au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
-            " Can't get it to work with tab, at least on linux.
-            "let g:UltiSnipsListSnippets="<c-m>"
-            "let g:UltiSnipsExpandTrigger="<tab>"
+            Bundle 'honza/vim-snippets'
+
+            let g:UltiSnipsExpandTrigger="<c-j>"
+            let g:UltiSnipsJumpForwardTrigger="<c-j>"
+            let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+            "function! g:UltiSnips_Complete()
+                "call UltiSnips_ExpandSnippet()
+                "if g:ulti_expand_res == 0
+                    "if pumvisible()
+                        "return "\<C-N>"
+                    "else
+                        "call UltiSnips_JumpForwards()
+                        "if g:ulti_jump_forwards_res == 0
+                            "return "\<Tab>"
+                        "endif
+                    "endif
+                "endif
+                "return ""
+            "endfunction
             "let g:UltiSnipsJumpForwardTrigger="<tab>"
-            "let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
+            "au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
+
         endif
     " }
 

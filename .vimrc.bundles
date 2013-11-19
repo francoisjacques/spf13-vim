@@ -164,35 +164,38 @@
             Bundle 'honza/vim-snippets'
             Bundle 'spf13/vim-autoclose'
         elseif count(g:spf13_bundle_groups, 'youcompleteme')
-            "Bundle 'Valloric/YouCompleteMe'
-            "let g:ycm_add_preview_to_completeopt=0
-            "let g:ycm_confirm_extra_conf=0
-            "set completeopt-=preview
+            Bundle 'Valloric/YouCompleteMe'
+            let g:ycm_add_preview_to_completeopt=0
+            let g:ycm_confirm_extra_conf=0
+            set completeopt-=preview
             Bundle 'Raimondi/delimitMate'
             let delimitMate_expand_cr=1
             Bundle 'SirVer/ultisnips'
             let g:UltiSnipsUsePythonVersion = 2
             Bundle 'honza/vim-snippets'
 
-            let g:UltiSnipsExpandTrigger="<c-j>"
+            "let g:UltiSnipsExpandTrigger="<c-j>"
+            "let g:UltiSnipsJumpForwardTrigger="<c-j>"
+            "let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+            let g:UltiSnipsExpandTrigger="<c-h>"
+            let g:UltiSnipsListSnippets="<c-l>"
             let g:UltiSnipsJumpForwardTrigger="<c-j>"
-            let g:UltiSnipsJumpBackwardTrigger="<c-k>"
-            "function! g:UltiSnips_Complete()
-                "call UltiSnips_ExpandSnippet()
-                "if g:ulti_expand_res == 0
-                    "if pumvisible()
-                        "return "\<C-N>"
-                    "else
-                        "call UltiSnips_JumpForwards()
-                        "if g:ulti_jump_forwards_res == 0
-                            "return "\<Tab>"
-                        "endif
-                    "endif
-                "endif
-                "return ""
-            "endfunction
-            "let g:UltiSnipsJumpForwardTrigger="<tab>"
-            "au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
+            let g:UltiSnipsJumpForwardTrigger="<c-k>"
+            function! g:UltiSnips_Complete()
+                call UltiSnips_ExpandSnippet()
+                if g:ulti_expand_res == 0
+                    if pumvisible()
+                        return "\<C-N>"
+                    else
+                        call UltiSnips_JumpForwards()
+                        if g:ulti_jump_forwards_res == 0
+                            return "\<Tab>"
+                        endif
+                    endif
+                endif
+                return ""
+            endfunction
+            au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
 
         endif
     " }

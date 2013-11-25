@@ -123,7 +123,8 @@
             if !exists('g:spf13_no_views')
                 Bundle 'vim-scripts/restore_view.vim'
             endif
-            Bundle 'airblade/vim-gitgutter'
+            "Bundle 'airblade/vim-gitgutter'i
+            Bundle 'mhinz/vim-signify'
             Bundle 'tpope/vim-abolish.git'
         endif
     " }
@@ -174,29 +175,46 @@
             let g:UltiSnipsUsePythonVersion = 2
             Bundle 'honza/vim-snippets'
 
-            "let g:UltiSnipsExpandTrigger="<c-j>"
-            "let g:UltiSnipsJumpForwardTrigger="<c-j>"
-            "let g:UltiSnipsJumpBackwardTrigger="<c-k>"
-            let g:UltiSnipsExpandTrigger="<c-h>"
+            let g:UltiSnipsExpandTrigger="<C-e>"
+            let g:UltiSnipsJumpForwardTrigger="<c-i>"
             let g:UltiSnipsListSnippets="<c-l>"
-            let g:UltiSnipsJumpForwardTrigger="<c-j>"
-            let g:UltiSnipsJumpForwardTrigger="<c-k>"
+            let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
+
             function! g:UltiSnips_Complete()
                 call UltiSnips_ExpandSnippet()
                 if g:ulti_expand_res == 0
                     if pumvisible()
-                        return "\<C-N>"
+                        return "\<C-n>"
                     else
                         call UltiSnips_JumpForwards()
                         if g:ulti_jump_forwards_res == 0
-                            return "\<Tab>"
+                            return "\<TAB>"
                         endif
                     endif
                 endif
                 return ""
             endfunction
-            au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
 
+           au BufEnter,BufRead * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
+
+           func! g:jInYCM()
+                if pumvisible()
+                    return "\<C-n>"
+                else
+                    return "\<c-j>"
+                endif
+            endfunction
+
+            func! g:kInYCM()
+                if pumvisible()
+                   return "\<C-p>"
+                else
+                   return "\<c-k>"
+                endif
+            endfunction
+            inoremap <c-j> <c-r>=g:jInYCM()<cr>
+            au BufEnter,BufRead * exec "inoremap <silent> " . g:UltiSnipsJumpForwardTrigger . " <C-R>=g:jInYCM()<cr>"
+            au BufEnter,BufRead * exec "inoremap <silent> " . g:UltiSnipsJumpBackwardTrigger . " <C-R>=g:kInYCM()<cr>"
         endif
     " }
 

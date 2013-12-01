@@ -17,9 +17,21 @@
 
 " Environment {
 
+    " Identify platform {
+        silent function! OSX()
+            return has('macunix')
+        endfunction
+        silent function! LINUX()
+            return has('unix') && !has('macunix') && !has('win32unix')
+        endfunction
+        silent function! WINDOWS()
+            return  (has('win16') || has('win32'))
+        endfunction
+    " }
+
     " Basics {
         set nocompatible        " Must be first line
-        if !(has('win16') || has('win32') || has('win64'))
+        if !WINDOWS()
             set shell=/bin/sh
         endif
     " }
@@ -27,7 +39,7 @@
     " Windows Compatible {
         " On Windows, also use '.vim' instead of 'vimfiles'; this makes synchronization
         " across (heterogeneous) systems easier.
-        if has('win32') || has('win64')
+        if WINDOWS()
           set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
         endif
     " }
@@ -49,21 +61,28 @@
 " General {
 
     set background=dark         " Assume a dark background
-    if !has('gui')
+    " if !has('gui')
         "set term=$TERM          " Make arrow and other keys work
-    endif
+    " endif
     filetype plugin indent on   " Automatically detect file types.
     syntax on                   " Syntax highlighting
     set mouse=a                 " Automatically enable mouse usage
     set mousehide               " Hide the mouse cursor while typing
     scriptencoding utf-8
 
-    " FIXME: Using normal Vim is common on Linux.
-    " Testing for 'x' != testing for Linux.
-    if has('x') && has ('gui') " On Linux use + register for copy-paste
+<<<<<<< HEAD
+    if has('clipboard')
+        if LINUX()   " On Linux use + register for copy-paste
+            set clipboard=unnamedplus
+        else         " On mac and Windows, use * register for copy-paste
+            set clipboard=unnamed
+        endif
+=======
+    if LINUX()   " On Linux use + register for copy-paste
         set clipboard=unnamedplus
-    elseif has ('gui')          " On mac and Windows, use * register for copy-paste
+    else         " On mac and Windows, use * register for copy-paste
         set clipboard=unnamed
+>>>>>>> Use platform identify functions
     endif
 
     " Most prefer to automatically switch to the current file directory when
@@ -227,6 +246,11 @@
         let mapleader = ','
     else
         let mapleader=g:spf13_leader
+    endif
+    if !exists('g:spf13_localleader')
+        let maplocalleader = '_'
+    else
+        let maplocalleader=g:spf13_localleader
     endif
 
     " Easier moving in tabs and windows
@@ -472,23 +496,22 @@
             \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$' }
 
         " On Windows use "dir" as fallback command.
-        if has('win32') || has('win64')
-            let g:ctrlp_user_command = {
-                \ 'types': {
-                    \ 1: ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others'],
-                    \ 2: ['.hg', 'hg --cwd %s locate -I .'],
-                \ },
-                \ 'fallback': 'dir %s /-n /b /s /a-d'
-            \ }
+        if WINDOWS()
+            let s:ctrlp_fallback = 'dir %s /-n /b /s /a-d'
+        elseif executable('ag')
+            let s:ctrlp_fallback = 'ag %s --nocolor -l -g ""'
+        elseif executable('ack')
+            let s:ctrlp_fallback = 'ack %s --nocolor -f'
         else
-            let g:ctrlp_user_command = {
-                \ 'types': {
-                    \ 1: ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others'],
-                    \ 2: ['.hg', 'hg --cwd %s locate -I .'],
-                \ },
-                \ 'fallback': 'find %s -type f'
-            \ }
+            let s:ctrlp_fallback = 'find %s -type f'
         endif
+        let g:ctrlp_user_command = {
+            \ 'types': {
+                \ 1: ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others'],
+                \ 2: ['.hg', 'hg --cwd %s locate -I .'],
+            \ },
+            \ 'fallback': s:ctrlp_fallback
+        \ }
     "}
 
     " TagBar {
@@ -513,7 +536,7 @@
     " PythonMode {
         " Disable if python support not present
         if !has('python')
-            let g:pymode = 1
+            let g:pymode = 0
         endif
     " }
 
@@ -527,6 +550,8 @@
         nnoremap <silent> <leader>gr :Gread<CR>
         nnoremap <silent> <leader>gw :Gwrite<CR>
         nnoremap <silent> <leader>ge :Gedit<CR>
+        " Mnemonic _i_nteractive
+        nnoremap <silent> <leader>gi :Git add -p %<CR>
         nnoremap <silent> <leader>gg :SignifyToggle<CR>
     "}
 
@@ -555,8 +580,10 @@
 
             " Plugin key-mappings {
                 " These two lines conflict with the default digraph mapping of <C-K>
-                imap <C-k> <Plug>(neosnippet_expand_or_jump)
-                smap <C-k> <Plug>(neosnippet_expand_or_jump)
+                if !exists('g:spf13_no_neosnippet_expand')
+                    imap <C-k> <Plug>(neosnippet_expand_or_jump)
+                    smap <C-k> <Plug>(neosnippet_expand_or_jump)
+                endif
                 if exists('g:spf13_noninvasive_completion')
                     iunmap <CR>
                     " <ESC> takes you out of insert mode
@@ -739,17 +766,6 @@
     " }
 
     " indent_guides {
-<<<<<<< HEAD
-        if !exists('g:spf13_no_indent_guides_autocolor')
-            let g:indent_guides_auto_colors = 1
-        else
-            " For some colorschemes, autocolor will not work (eg: 'desert', 'ir_black')
-            let g:indent_guides_auto_colors = 0
-            autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#212121 ctermbg=3
-            autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#404040 ctermbg=4
-        endif
-=======
->>>>>>> Move indent guides coloring to vimrc.before
         let g:indent_guides_start_level = 2
         let g:indent_guides_guide_size = 1
         let g:indent_guides_enable_on_vim_startup = 1
@@ -763,7 +779,12 @@
         "   let g:airline_powerline_fonts=1
         " If the previous symbols do not render for you then install a
         " powerline enabled font.
-        let g:airline_theme = 'solarized' " 'powerlineish' is another choice
+
+        " See `:echo g:airline_theme_map` for some more choices
+        " Default in terminal vim is 'dark'
+        if !exists('g:airline_theme')
+            let g:airline_theme = 'solarized'
+        endif
         if !exists('g:airline_powerline_fonts')
             " Use the default set of separators with a few customizations
             let g:airline_left_sep='›'  " Slightly fancier than '>'
@@ -779,15 +800,28 @@
     if has('gui_running')
         set guioptions-=T           " Remove the toolbar
         set lines=40                " 40 lines of text instead of 24
-        if has("gui_gtk2")
+<<<<<<< HEAD
+        if !exists("g:spf13_no_big_font")
+            if LINUX() && has("gui_running")
+                set guifont=Andale\ Mono\ Regular\ 16,Menlo\ Regular\ 15,Consolas\ Regular\ 16,Courier\ New\ Regular\ 18
+            elseif OSX() && has("gui_running")
+                set guifont=Andale\ Mono\ Regular:h16,Menlo\ Regular:h15,Consolas\ Regular:h16,Courier\ New\ Regular:h18
+            elseif WINDOWS() && has("gui_running")
+                set guifont=Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
+            endif
+=======
+        if LINUX() && has("gui_running")
             set guifont=Andale\ Mono\ Regular\ 16,Menlo\ Regular\ 15,Consolas\ Regular\ 16,Courier\ New\ Regular\ 18
-        elseif has("gui_mac")
+        elseif OSX() && has("gui_running")
             set guifont=Andale\ Mono\ Regular:h16,Menlo\ Regular:h15,Consolas\ Regular:h16,Courier\ New\ Regular:h18
-        elseif has("gui_win32")
+        elseif WINDOWS() && has("gui_running")
             set guifont=Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
+>>>>>>> Use platform identify functions
         endif
-        if has('gui_macvim')
-            set transparency=5      " Make the window slightly transparent
+        if !exists("g:spf13_no_transparency)
+            if has('gui_macvim')
+                set transparency=5      " Make the window slightly transparent
+            endif
         endif
     else
         if &term == 'xterm' || &term == 'screen'

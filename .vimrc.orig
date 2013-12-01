@@ -739,6 +739,17 @@
     " }
 
     " indent_guides {
+<<<<<<< HEAD
+        if !exists('g:spf13_no_indent_guides_autocolor')
+            let g:indent_guides_auto_colors = 1
+        else
+            " For some colorschemes, autocolor will not work (eg: 'desert', 'ir_black')
+            let g:indent_guides_auto_colors = 0
+            autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#212121 ctermbg=3
+            autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#404040 ctermbg=4
+        endif
+=======
+>>>>>>> Move indent guides coloring to vimrc.before
         let g:indent_guides_start_level = 2
         let g:indent_guides_guide_size = 1
         let g:indent_guides_enable_on_vim_startup = 1

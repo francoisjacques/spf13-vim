@@ -153,6 +153,7 @@
 
     highlight clear SignColumn      " SignColumn should match background
     highlight clear LineNr          " Current line number row will have same background color in relative mode
+    let g:CSApprox_hook_post = ['hi clear SignColumn']
     "highlight clear CursorLineNr    " Remove highlight color from current line number
 
     if has('cmdline_info')
@@ -798,8 +799,8 @@
         elseif WINDOWS() && has("gui_running")
             set guifont=Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
         endif
-        if !exists("g:spf13_no_transparency)
-            if has('gui_macvim')
+        if !exists("g:spf13_no_transparency")
+            if has("gui_macvim")
                 set transparency=5      " Make the window slightly transparent
             endif
         endif

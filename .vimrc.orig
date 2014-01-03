@@ -25,7 +25,7 @@
             return has('unix') && !has('macunix') && !has('win32unix')
         endfunction
         silent function! WINDOWS()
-            return  (has('win16') || has('win32'))
+            return  (has('win16') || has('win32') || has('win64'))
         endfunction
     " }
 
@@ -70,19 +70,10 @@
     set mousehide               " Hide the mouse cursor while typing
     scriptencoding utf-8
 
-<<<<<<< HEAD
-    if has('clipboard')
-        if LINUX()   " On Linux use + register for copy-paste
-            set clipboard=unnamedplus
-        else         " On mac and Windows, use * register for copy-paste
-            set clipboard=unnamed
-        endif
-=======
     if LINUX()   " On Linux use + register for copy-paste
         set clipboard=unnamedplus
     else         " On mac and Windows, use * register for copy-paste
         set clipboard=unnamed
->>>>>>> Use platform identify functions
     endif
 
     " Most prefer to automatically switch to the current file directory when
@@ -162,6 +153,7 @@
 
     highlight clear SignColumn      " SignColumn should match background
     highlight clear LineNr          " Current line number row will have same background color in relative mode
+    let g:CSApprox_hook_post = ['hi clear SignColumn']
     "highlight clear CursorLineNr    " Remove highlight color from current line number
 
     if has('cmdline_info')
@@ -270,11 +262,32 @@
     noremap k gk
 
     " Same for 0, home, end, etc
-    noremap $ g$
-    noremap <End> g<End>
-    noremap 0 g0
-    noremap <Home> g<Home>
-    noremap ^ g^
+    function! WrapRelativeMotion(key, ...)
+        let vis_sel=""
+        if a:0
+            let vis_sel="gv"
+        endif
+        if &wrap
+            execute "normal!" vis_sel . "g" . a:key
+        else
+            execute "normal!" vis_sel . a:key
+        endif
+    endfunction
+
+    " Map g* keys in Normal, Operator-pending, and Visual+select (over written
+    " below) modes
+    noremap $ :call WrapRelativeMotion("$")<CR>
+    noremap <End> :call WrapRelativeMotion("$")<CR>
+    noremap 0 :call WrapRelativeMotion("0")<CR>
+    noremap <Home> :call WrapRelativeMotion("0")<CR>
+    noremap ^ :call WrapRelativeMotion("^")<CR>
+    " Over write the Visual+Select mode mappings to ensure correct mode is
+    " passed to WrapRelativeMotion
+    vnoremap $ :<C-U>call WrapRelativeMotion("$", 1)<CR>
+    vnoremap <End> :<C-U>call WrapRelativeMotion("$", 1)<CR>
+    vnoremap 0 :<C-U>call WrapRelativeMotion("0", 1)<CR>
+    vnoremap <Home> :<C-U>call WrapRelativeMotion("0", 1)<CR>
+    vnoremap ^ :<C-U>call WrapRelativeMotion("^", 1)<CR>
 
     " The following two lines conflict with moving to top and
     " bottom of the screen
@@ -475,6 +488,7 @@
         set sessionoptions=blank,buffers,curdir,folds,tabpages,winsize
         nmap <leader>sl :SessionList<CR>
         nmap <leader>ss :SessionSave<CR>
+        nmap <leader>sc :SessionClose<CR>
     " }
 
     " JSON {
@@ -497,11 +511,21 @@
 
         " On Windows use "dir" as fallback command.
         if WINDOWS()
+<<<<<<< HEAD
             let s:ctrlp_fallback = 'dir %s /-n /b /s /a-d'
         elseif executable('ag')
             let s:ctrlp_fallback = 'ag %s --nocolor -l -g ""'
         elseif executable('ack')
             let s:ctrlp_fallback = 'ack %s --nocolor -f'
+=======
+            let g:ctrlp_user_command = {
+                \ 'types': {
+                    \ 1: ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others'],
+                    \ 2: ['.hg', 'hg --cwd %s locate -I .'],
+                \ },
+                \ 'fallback': 'dir %s /-n /b /s /a-d'
+            \ }
+>>>>>>> Better windows detection
         else
             let s:ctrlp_fallback = 'find %s -type f'
         endif
@@ -800,26 +824,15 @@
     if has('gui_running')
         set guioptions-=T           " Remove the toolbar
         set lines=40                " 40 lines of text instead of 24
-<<<<<<< HEAD
-        if !exists("g:spf13_no_big_font")
-            if LINUX() && has("gui_running")
-                set guifont=Andale\ Mono\ Regular\ 16,Menlo\ Regular\ 15,Consolas\ Regular\ 16,Courier\ New\ Regular\ 18
-            elseif OSX() && has("gui_running")
-                set guifont=Andale\ Mono\ Regular:h16,Menlo\ Regular:h15,Consolas\ Regular:h16,Courier\ New\ Regular:h18
-            elseif WINDOWS() && has("gui_running")
-                set guifont=Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
-            endif
-=======
         if LINUX() && has("gui_running")
             set guifont=Andale\ Mono\ Regular\ 16,Menlo\ Regular\ 15,Consolas\ Regular\ 16,Courier\ New\ Regular\ 18
         elseif OSX() && has("gui_running")
             set guifont=Andale\ Mono\ Regular:h16,Menlo\ Regular:h15,Consolas\ Regular:h16,Courier\ New\ Regular:h18
         elseif WINDOWS() && has("gui_running")
             set guifont=Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
->>>>>>> Use platform identify functions
         endif
-        if !exists("g:spf13_no_transparency)
-            if has('gui_macvim')
+        if !exists("g:spf13_no_transparency")
+            if has("gui_macvim")
                 set transparency=5      " Make the window slightly transparent
             endif
         endif

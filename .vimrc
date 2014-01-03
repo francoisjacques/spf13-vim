@@ -823,11 +823,6 @@
         elseif WINDOWS() && has("gui_running")
             set guifont=Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
         endif
-        if !exists("g:spf13_no_transparency")
-            if has("gui_macvim")
-                set transparency=5      " Make the window slightly transparent
-            endif
-        endif
     else
         if &term == 'xterm' || &term == 'screen'
             set t_Co=256            " Enable 256 colors to stop the CSApprox warning and make xterm vim shine

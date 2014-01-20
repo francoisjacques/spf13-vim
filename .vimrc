@@ -453,7 +453,7 @@
     " }
 
     " NerdTree {
-        map <C-e> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
+        map <C-e> <plug>NERDTreeTabsToggle<CR>
         map <leader>e :NERDTreeFind<CR>
         nmap <leader>nt :NERDTreeFind<CR>
 

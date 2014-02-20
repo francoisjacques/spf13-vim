@@ -127,6 +127,10 @@
             if !exists('g:spf13_no_views')
                 Bundle 'vim-scripts/restore_view.vim'
             endif
+<<<<<<< HEAD
+            "Bundle 'airblade/vim-gitgutter'i
+=======
+>>>>>>> upstream/3.0
             Bundle 'mhinz/vim-signify'
             Bundle 'tpope/vim-abolish.git'
             Bundle 'osyo-manga/vim-over'

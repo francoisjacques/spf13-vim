@@ -36,7 +36,6 @@ if !exists("g:override_spf13_bundles")
 
         " HTML
             if count(g:spf13_bundle_groups, 'html')
-                Bundle 'mattn/emmet-vim'
                 Bundle 'othree/html5.vim'
             endif
     " }

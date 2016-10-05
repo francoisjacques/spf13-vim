@@ -1,5 +1,7 @@
 " In your .vimrc.bundles.local file"
 " list only the plugin groups you will use
+let g:spf13_keep_trailing_whitespace = 1
+
 if (has('win32') || has('win64') || has('win32unix'))
     if !exists('g:spf13_bundle_groups')
         let g:spf13_bundle_groups=['general', 'neocomplete', 'programming', 'javascript', 'html', 'misc', 'nodejs']
@@ -7,7 +9,8 @@ if (has('win32') || has('win64') || has('win32unix'))
     endif
 else
     if !exists('g:spf13_bundle_groups')
-        let g:spf13_bundle_groups=['general', 'youcompleteme', 'programming', 'javascript', 'html', 'misc', 'nodejs', 'ruby', 'database']
+        " let g:spf13_bundle_groups=['general', 'youcompleteme', 'programming', 'javascript', 'html', 'misc', 'nodejs', 'ruby', 'database']
+        let g:spf13_bundle_groups=['general', 'neocomplete', 'programming', 'javascript', 'html', 'misc', 'nodejs', 'ruby', 'database']
         let g:PreviewBrowsers='firefox,lynx'
     endif
 endif

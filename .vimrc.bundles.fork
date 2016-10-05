@@ -42,11 +42,14 @@ if !exists("g:override_spf13_bundles")
         " Ruby
             if count(g:spf13_bundle_groups, 'ruby')
                 Bundle 'vim-ruby/vim-ruby'
+                Bundle 'tpope/vim-bundler'
+                Bundle 'tpope/vim-projectionist'
+                Bundle 'tpope/vim-rake'
             endif
 
         " Database
             if count(g:spf13_bundle_groups, 'database')
-                Bundle 'edsono/dbext'
+                Bundle 'jonathanfilip/vim-dbext'
             endif
     " }
 

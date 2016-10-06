@@ -163,6 +163,11 @@
             if executable('ctags')
                 Bundle 'majutsushi/tagbar'
             endif
+            if executable('tmux')
+                Bundle 'jpalardy/vim-slime'
+                let g:slime_default_config = {"socket_name": "default", "target_pane": "0"}
+                let g:slime_target = "tmux"
+            endif
         endif
     " }
 

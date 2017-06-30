@@ -185,6 +185,7 @@
         color solarized             " Load a colorscheme
     endif
 
+    color evolution
     set tabpagemax=15               " Only show 15 tabs
     set showmode                    " Display the current mode
 
@@ -1084,6 +1085,7 @@
     else
         if &term == 'xterm' || &term == 'screen'
             set t_Co=256            " Enable 256 colors to stop the CSApprox warning and make xterm vim shine
+            colorscheme evolution
         endif
         "set term=builtin_ansi       " Make arrow and other keys work
     endif
@@ -1249,3 +1251,4 @@
         endif
     endif
 " }
+"

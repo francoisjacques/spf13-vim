@@ -6,6 +6,12 @@
 if !exists("g:override_spf13_bundles")
 
     " Bundles {
+    "   " François is colourblind
+        Bundle 'petelewis/vim-evolution'
+        if has('termguicolors')
+            set termguicolors
+        endif
+
         " NeoComplete/Snippets support
             if count(g:spf13_bundle_groups, 'neocomplete')
                 Bundle 'Shougo/context_filetype.vim'
